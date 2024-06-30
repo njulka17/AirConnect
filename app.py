@@ -6,6 +6,7 @@ from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, creat
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config import Config
+from website import website_blueprint
 
 # INIT APP
 app = Flask(__name__)
@@ -134,7 +135,7 @@ def admin_login():
 
 
 # Add Flights
-@api_blueprint.route('/flights', methods=['POST'])
+@api_blueprint.route('/admin/flights', methods=['POST'])
 @jwt_required()
 def add_flights():
     user_identity = get_jwt_identity()
@@ -168,7 +169,7 @@ def add_flights():
 
 
 # View Bookings
-@api_blueprint.route('/bookings', methods=['GET'])
+@api_blueprint.route('/admin/bookings', methods=['GET'])
 @jwt_required()
 def view_bookings():
     user_identity = get_jwt_identity()
@@ -217,6 +218,7 @@ def view_bookings():
 
 
 app.register_blueprint(api_blueprint)
+app.register_blueprint(website_blueprint)
 
 
 @app.shell_context_processor

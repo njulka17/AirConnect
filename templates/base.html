@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container flex-c">
+        <h1>Flight Booking App</h1>
+
+        <div id="signup" class="section flex-c">
+            <h2>User Signup</h2>
+            <form id="signupForm" class="flex-c">
+                <input type="text" id="signupUsername" placeholder="Username" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <button type="submit">Sign Up</button><br>
+                <div class="flex-r center w-fill space-evenly">
+                    Already signed-up?
+                    <button id="loginRedirect" type="button">Sign In</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="login" class="hidden section flex-c">
+            <h2>User Login</h2>
+            <form id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Username" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit">Login</button><br>
+                <div class="flex-r center w-fill space-evenly">
+                    Not registered?
+                    <button id="signupRedirect" type="button">Sign Up</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="flights" class="hidden section flex-c">
+            <h2>Available Flights</h2>
+            <form id="searchForm">
+                <input type="text" id="searchFlightName" placeholder="Flight Name">
+                <input type="date" id="searchFlightDate">
+                <input type="text" id="searchFlightNumber" placeholder="Flight Number">
+                <button type="submit">Search</button>
+            </form>
+            <div id="searchResults"></div>
+        </div>
+
+        <div id="bookTickets" class="hidden section flex-c">
+            <h2>Book Tickets</h2>
+            <form id="bookingForm">
+                <input type="number" id="bookingFlightId" placeholder="Flight ID" required>
+                <input type="number" id="bookingNumTickets" placeholder="Number of Tickets" required>
+                <button type="submit">Book</button>
+            </form>
+        </div>
+
+        <div id="admin" class="hidden section flex-c">
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm">
+                <input type="text" id="adminLoginUsername" placeholder="Username" required>
+                <input type="password" id="adminLoginPassword" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <div id="addFlights" class="hidden section flex-c">
+            <h2>Add Flights</h2>
+            <form id="addFlightForm">
+                <input type="text" id="addFlightName" placeholder="Flight Name" required>
+                <input type="text" id="addFlightNumber" placeholder="Flight Number" required>
+                <input type="datetime-local" id="addDepartureTime" required>
+                <input type="datetime-local" id="addArrivalTime" required>
+                <input type="text" id="addOrigin" placeholder="Origin" required>
+                <input type="text" id="addDestination" placeholder="Destination" required>
+                <input type="number" id="addTotalSeats" placeholder="Total Seats" required>
+                <button type="submit">Add Flight</button>
+            </form>
+        </div>
+
+        <div id="viewBookings" class="hidden section flex-c">
+            <h2>View Bookings</h2>
+            <form id="viewBookingsForm">
+                <input type="number" id="viewBookingFlightId" placeholder="Flight ID">
+                <input type="text" id="viewBookingFlightName" placeholder="Flight Name">
+                <input type="date" id="viewBookingDate">
+                <button type="submit">View</button>
+            </form>
+            <div id="bookingResults"></div>
+        </div>
+    </div>
+
+    <script src="/static/js/index.js"></script>
+</body>
+</html>

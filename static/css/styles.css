@@ -1,0 +1,74 @@
+* {
+	font-family: 'Lora', system-ui
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    min-width: 100dvh;
+    min-height: 100dvh;
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+    display: flex;
+}
+.container {
+    min-width: 20rem;
+    margin: auto auto;
+    padding: 3rem 6rem 4rem 6rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 1px 17px 3px rgb(0 0 0 / 30%);
+}
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+input, button {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+}
+button:hover {
+    background-color: #0056b3;
+}
+.section {}
+.search-result {
+	border-color: #a0e3ff;
+    border-style: solid;
+    border-radius: 8px;
+    border-width: thin;
+    padding: 15px;
+}
+.center {
+	align-items: center;
+	justify-content: center;
+}
+.space-evenly {
+	justify-content: space-evenly;
+}
+.flex {
+	display: flex;
+}
+.flex-c {
+	display: flex;
+	flex-direction: column;
+}
+.flex-r {
+	display: flex;
+	flex-direction: row;
+}
+.w-fill {
+	width: -webkit-fill-available;
+}
+.hidden {
+    display: none;
+}
