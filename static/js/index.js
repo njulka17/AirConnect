@@ -5,6 +5,26 @@ function showSection(sectionId) {
     document.getElementById(sectionId).classList.remove('hidden');
 }
 
+function enableButton(btn) {
+	btn.disabled = false;
+	btn.style.backgroundColor = '#007bff';
+	btn.style.color = 'white';
+}
+
+function disableButton(btn) {
+	btn.disabled = true;
+	btn.style.backgroundColor = '#3597ff';
+	btn.style.color = '#b4b4b4';
+}
+
+function removeDisplay(ele) {
+	ele.classList.add('hidden');
+}
+
+function showDisplay(ele) {
+	ele.classList.remove('hidden');
+}
+
 // User Signup
 document.getElementById('signupForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -44,12 +64,76 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .then(response => response.json())
     .then(data => {
         localStorage.setItem('access_token', data.access_token);
+        localStorage.setItem('last_login', new Date());
+        localStorage.setItem('role', 'user');
         showSection('flights');
     })
     .catch(error => console.error('Error:', error));
+
+    enableButton(document.getElementById('signOut'));
+    removeDisplay(document.getElementById('userSignIn'));
+    removeDisplay(document.getElementById('userSignUp'));
+    removeDisplay(document.getElementById('adminSignIn'));
+    removeDisplay(document.getElementById('adminSignUp'));
+    showDisplay(document.getElementById('bookFlight'));
 });
 
 document.getElementById('signupRedirect').addEventListener('click', () => { showSection('signup'); })
+document.getElementById('adminSignupRedirect').addEventListener('click', () => { showSection('admin-signup'); })
+document.getElementById('adminLoginRedirect').addEventListener('click', () => { showSection('admin-login'); })
+
+document.getElementById('signOut').addEventListener('click', () => {
+	localStorage.setItem('access_token', null);
+	localStorage.setItem('last_login', null);
+	localStorage.setItem('role', null);
+
+	document.querySelectorAll('input').forEach((inputEle) => {inputEle.value = ''});
+	showSection('login');
+
+	enableButton(document.getElementById('adminSignIn'));
+	enableButton(document.getElementById('adminSignUp'));
+	disableButton(document.getElementById('signOut'));
+
+	removeDisplay(document.getElementById('addFlight'));
+	removeDisplay(document.getElementById('viewBooking'));
+	removeDisplay(document.getElementById('bookFlight'));
+	removeDisplay(document.getElementById('searchFlight'));
+
+	showDisplay(document.getElementById('adminSignIn'));
+	showDisplay(document.getElementById('adminSignUp'));
+})
+
+document.getElementById('adminSignIn').addEventListener('click', () => {
+	showSection('admin-login');
+	removeDisplay(document.getElementById('adminSignIn'));
+	removeDisplay(document.getElementById('adminSignUp'));
+	showDisplay(document.getElementById('userSignIn'));
+	showDisplay(document.getElementById('userSignUp'));
+})
+
+document.getElementById('adminSignUp').addEventListener('click', () => {
+	showSection('admin-signup');
+	removeDisplay(document.getElementById('adminSignIn'));
+	removeDisplay(document.getElementById('adminSignUp'));
+	showDisplay(document.getElementById('userSignIn'));
+	showDisplay(document.getElementById('userSignUp'));
+})
+
+document.getElementById('userSignIn').addEventListener('click', () => {
+	showSection('login');
+	showDisplay(document.getElementById('adminSignIn'));
+	showDisplay(document.getElementById('adminSignUp'));
+	removeDisplay(document.getElementById('userSignIn'));
+	removeDisplay(document.getElementById('userSignUp'));
+})
+
+document.getElementById('userSignUp').addEventListener('click', () => {
+	showSection('signup');
+	showDisplay(document.getElementById('adminSignIn'));
+	showDisplay(document.getElementById('adminSignUp'));
+	removeDisplay(document.getElementById('userSignIn'));
+	removeDisplay(document.getElementById('userSignUp'));
+})
 
 // Search Flights
 document.getElementById('searchForm').addEventListener('submit', function(event) {
@@ -82,6 +166,12 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
     .catch(error => console.error('Error:', error));
 });
 
+document.getElementById('searchFlight').addEventListener('click', () => {
+	showSection('flights');
+	removeDisplay(document.getElementById('searchFlight'));
+	showDisplay(document.getElementById('bookFlight'));
+})
+
 // Book Tickets
 document.getElementById('bookingForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -101,6 +191,12 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
     .catch(error => console.error('Error:', error));
 });
 
+document.getElementById('bookFlight').addEventListener('click', () => {
+	showSection('bookTickets');
+	removeDisplay(document.getElementById('bookFlight'));
+	showDisplay(document.getElementById('searchFlight'));
+});
+
 // Admin Login
 document.getElementById('adminLoginForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -117,7 +213,37 @@ document.getElementById('adminLoginForm').addEventListener('submit', function(ev
     .then(response => response.json())
     .then(data => {
         localStorage.setItem('access_token', data.access_token);
-        showSection('addFlights');
+        localStorage.setItem('last_login', new Date());
+        localStorage.setItem('role', 'admin')
+        showSection('viewBookings');
+    })
+    .catch(error => console.error('Error:', error));
+
+    enableButton(document.getElementById('signOut'));
+    removeDisplay(document.getElementById('adminSignUp'));
+    removeDisplay(document.getElementById('adminSignIn'));
+    removeDisplay(document.getElementById('userSignIn'));
+    removeDisplay(document.getElementById('userSignUp'));
+    showDisplay(document.getElementById('addFlight'));
+});
+
+// Admin Signup
+document.getElementById('adminSignupForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const username = document.getElementById('adminSignupUsername').value;
+    const email = document.getElementById('adminSignupEmail').value;
+    const password = document.getElementById('adminSignupPassword').value;
+
+    fetch('/api/admin/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, email, password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        showSection('login');
     })
     .catch(error => console.error('Error:', error));
 });
@@ -145,6 +271,12 @@ document.getElementById('addFlightForm').addEventListener('submit', function(eve
     .then(data => alert('Flight added successfully!'))
     .catch(error => console.error('Error:', error));
 });
+
+document.getElementById('addFlight').addEventListener('click', () => {
+	showSection('addFlights');
+	showDisplay(document.getElementById('viewBooking'));
+	removeDisplay(document.getElementById('addFlight'));
+})
 
 // View Bookings
 document.getElementById('viewBookingsForm').addEventListener('submit', function(event) {
@@ -178,9 +310,38 @@ document.getElementById('viewBookingsForm').addEventListener('submit', function(
     .catch(error => console.error('Error:', error));
 });
 
+document.getElementById('viewBooking').addEventListener('click', () => {
+	showSection('viewBookings');
+	removeDisplay(document.getElementById('viewBooking'));
+	showDisplay(document.getElementById('addFlight'));
+})
 
-if (localStorage.getItem('access_token') === null) {
+
+if (localStorage.getItem('access_token') === null || localStorage.getItem('access_token') === 'null') {
 	showSection('login');
+	disableButton(document.getElementById('signOut'));
 } else {
-	showSection('flights');
+	if (new Date() - localStorage.getItem('last_login') > 86400) {
+		localStorage.setItem('access_token', null);
+		localStorage.setItem('last_login', null);
+		localStorage.setItem('role', null);
+		showSection('login');
+		disableButton(document.getElementById('signOut'));
+	}
+	if (localStorage.getItem('role') === 'admin') {
+		showSection('viewBookings');
+	    removeDisplay(document.getElementById('adminSignUp'));
+	    removeDisplay(document.getElementById('adminSignIn'));
+	    removeDisplay(document.getElementById('userSignIn'));
+	    removeDisplay(document.getElementById('userSignUp'));
+	    showDisplay(document.getElementById('addFlight'));
+	} else {
+		showSection('flights');
+	    removeDisplay(document.getElementById('adminSignUp'));
+	    removeDisplay(document.getElementById('adminSignIn'));
+	    removeDisplay(document.getElementById('userSignIn'));
+	    removeDisplay(document.getElementById('userSignUp'));
+	    showDisplay(document.getElementById('bookFlight'));
+	}
+	enableButton(document.getElementById('signOut'));
 }

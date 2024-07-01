@@ -72,3 +72,24 @@ button:hover {
 .hidden {
     display: none;
 }
+.p-abs {
+	position: absolute;
+}
+.mar-l-1-5-rem {
+	margin-left: 1.5rem;
+}
+
+#adminAuth {
+	min-width: 15rem;
+	justify-content: space-between;
+}
+
+#navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 0.5rem;
+    border: solid 1px #c0c0c0;
+}

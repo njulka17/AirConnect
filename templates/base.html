@@ -3,13 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flight Booking App</title>
+    <title>AirConnect</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
+    <div id="navbar" class="p-abs w-fill">
+        <div id="adminAuth" class="flex-r">
+            <button id="adminSignUp" type="button" class="">Admin Sign-Up</button>
+            <button id="adminSignIn" type="button" class="">Admin Sign-In</button>
+            <button id="userSignIn" type="button" class="hidden">User Sign-In</button>
+            <button id="userSignUp" type="button" class="hidden">User Sign-Up</button>
+            <button id="addFlight" type="button" class="hidden">Add Flight</button>
+            <button id="viewBooking" type="button" class="hidden">View Bookings</button>
+            <button id="bookFlight" type="button" class="hidden">Book Flight</button>
+            <button id="searchFlight" type="button" class="hidden">Search Flight</button>
+        </div>
+        <button id="signOut" type="button">Sign Out</button>
+    </div>
     <div class="container flex-c">
         <h1>Flight Booking App</h1>
 
@@ -60,12 +73,30 @@
             </form>
         </div>
 
-        <div id="admin" class="hidden section flex-c">
+        <div id="admin-login" class="hidden section flex-c">
             <h2>Admin Login</h2>
             <form id="adminLoginForm">
                 <input type="text" id="adminLoginUsername" placeholder="Username" required>
                 <input type="password" id="adminLoginPassword" placeholder="Password" required>
-                <button type="submit">Login</button>
+                <button type="submit">Login</button><br>
+                <div class="flex-r center w-fill space-evenly">
+                    Not registered?
+                    <button id="adminSignupRedirect" type="button">Sign Up</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="admin-signup" class="section flex-c">
+            <h2>Admin Signup</h2>
+            <form id="adminSignupForm" class="flex-c">
+                <input type="text" id="adminSignupUsername" placeholder="Username" required>
+                <input type="email" id="adminSignupEmail" placeholder="Email" required>
+                <input type="password" id="adminSignupPassword" placeholder="Password" required>
+                <button type="submit">Sign Up</button><br>
+                <div class="flex-r center w-fill space-evenly">
+                    Already signed-up?
+                    <button id="adminLoginRedirect" type="button">Sign In</button>
+                </div>
             </form>
         </div>
 

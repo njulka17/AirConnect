@@ -134,6 +134,18 @@ def admin_login():
     return jsonify({'access_token': access_token}), 200
 
 
+@api_blueprint.route('/admin/signup', methods=['POST'])
+def admin_signup():
+    data = request.get_json()
+    hashed_password = generate_password_hash(data['password'])
+
+    new_user = User(username=data['username'], password=hashed_password, email=data['email'], role='admin')
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({'message': 'Admin created successfully'}), 201
+
+
 # Add Flights
 @api_blueprint.route('/admin/flights', methods=['POST'])
 @jwt_required()
@@ -183,7 +195,6 @@ def view_bookings():
 
     query = (db.session
              .query(Booking, User, Flight)
-             .join(User, Booking.user_id == User.id)
              .join(Flight, Booking.flight_id == Flight.id)
              )
 
@@ -192,6 +203,7 @@ def view_bookings():
 
     if flight_name:
         query = query.filter(Flight.flight_name == flight_name)
+
     if date:
         query = query.filter(db.func.date(Flight.departure_time) == date)
 
