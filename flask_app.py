@@ -1,20 +1,9 @@
 import datetime
-try:
-    from flask import Flask, jsonify, request, Blueprint
-    from flask_sqlalchemy import SQLAlchemy
-    from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, create_access_token
-    from werkzeug.security import check_password_hash, generate_password_hash
-except ImportError as err:
-    print("Modules not found:", err)
-    print("Installing modules...")
-    import pip
-    pip.main(['install', 'flask', 'flask_jwt_extended', 'flask-sqlalchemy'])
 
-    from flask import Flask, jsonify, request, Blueprint
-    from flask_sqlalchemy import SQLAlchemy
-    from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, create_access_token
-    from werkzeug.security import check_password_hash, generate_password_hash
-
+from flask import Flask, jsonify, request, Blueprint
+from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, create_access_token
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from config import Config
 from website import website_blueprint
