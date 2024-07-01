@@ -159,7 +159,7 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
         const resultsDiv = document.getElementById('searchResults');
         resultsDiv.innerHTML = '<h3>Search Results:</h3>';
         data.forEach(flight => {
-            const flightInfo = `<p class="search-result">Flight Name: ${flight.flight_name}<br>Date: ${flight.departure_time}<br>Flight Number: ${flight.flight_number}</p>`;
+            const flightInfo = `<p class="search-result">Flight ID: ${flight.id}<br>Flight Name: ${flight.flight_name}<br>Flight Number:${flight.flight_number}<br>Date: ${flight.departure_time}<br>Arrival Time: ${flight.arrival_time}<br>Origin: ${flight.origin}<br>Destination: ${flight.destination}<br>Total Seats: ${flight.total_seats}<br></p>`;
             resultsDiv.innerHTML += flightInfo;
         });
     })
@@ -189,6 +189,7 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
     .then(response => response.json())
     .then(data => alert('Tickets booked successfully!'))
     .catch(error => console.error('Error:', error));
+    document.querySelectorAll('input').forEach((inputEle) => {inputEle.value = ''});
 });
 
 document.getElementById('bookFlight').addEventListener('click', () => {

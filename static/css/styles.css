@@ -94,8 +94,14 @@ button:hover {
     border: solid 1px #c0c0c0;
 }
 
-#searchResults, #bookingResults {
+#searchResults {
     overflow: scroll;
     height: 16rem;
     width: 26rem;
+}
+
+#bookingResults {
+	overflow: scroll;
+    height: 16rem;
+    width: 30rem;
 }
