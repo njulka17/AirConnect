@@ -11,6 +11,10 @@ from website import website_blueprint
 # INIT APP
 app = Flask(__name__)
 app.config.from_object(Config)
+app.config['FLASK_SECRET_KEY'] = 'some_random_secret_key'
+app.config['JWT_SECRET_KEY'] = 'Ns1XUCSe5nvIsf6LqupKS25vQSyhxOSHCpwqK-gm_CY'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flights.db'
+
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
 
